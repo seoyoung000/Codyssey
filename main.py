@@ -1,5 +1,3 @@
-import os
-
 def analyze_log():
     file_name = 'mission_computer_main.log'
     report_name = 'log_analysis.md'
@@ -9,11 +7,8 @@ def analyze_log():
         with open(file_name, 'r', encoding='utf-8') as file:
             lines = file.readlines()
             
-        print('--- [전체 로그 출력] ---')
         for line in lines:
             print(line.strip())
-
-        for line in lines[1:]: 
             if 'unstable' in line.lower() or 'explosion' in line.lower():
                 issue_logs.append(line.strip())
 
