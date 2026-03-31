@@ -13,24 +13,21 @@ class DummySensor:
         "internal_o2": (4, 7)
     }
 
+    def __init__(self):
+        # 여기서 _env_values라는 '바구니'를 미리 만들어야 합니다.
+        self._env_values = {
+            "mars_base_internal_temperature": 0.0,
+            "mars_base_external_temperature": 0.0,
+            "mars_base_internal_humidity": 0.0,
+            "mars_base_external_illuminance": 0.0,
+            "mars_base_internal_co2": 0.0,
+            "mars_base_internal_oxygen": 0.0
+        }
+    
+
     def set_env(self):
         c = self.CONFIG
         # random.uniform을 통해 생성
-        self._env_values["mars_base_internal_temperature"] = random.uniform(*c["internal_temp"])
-        self._env_values["mars_base_external_temperature"] = random.uniform(*c["external_temp"])
-        self._env_values["mars_base_internal_humidity"] = random.uniform(*c["internal_hum"])
-        self._env_values["mars_base_external_illuminance"] = random.uniform(*c["external_illu"])
-        self._env_values["mars_base_internal_co2"] = random.uniform(*c["internal_co2"])
-        self._env_values["mars_base_internal_oxygen"] = random.uniform(*c["internal_o2"])
-
-    def get_env(self):
-        """현재 저장된 환경 데이터의 복사본을 반환함"""
-        return self._env_values.copy()
-
-    def set_env(self):
-        """CONFIG 범위 내에서 랜덤 데이터를 생성하여 저장함"""
-        c = self.CONFIG
-        # random.uniform을 통해 소수점 단위까지 정밀하게 생성
         self._env_values["mars_base_internal_temperature"] = random.uniform(*c["internal_temp"])
         self._env_values["mars_base_external_temperature"] = random.uniform(*c["external_temp"])
         self._env_values["mars_base_internal_humidity"] = random.uniform(*c["internal_hum"])
