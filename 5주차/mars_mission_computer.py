@@ -1,53 +1,57 @@
 import random
 
-
 class DummySensor:
-
-    def __init__(self):
-        # 환경 데이터를 저장할 사전(dict) 객체 초기화
-        self._env_values = {
-            "mars_base_internal_temperature": 0.0,
-            "mars_base_external_temperature": 0.0,
-            "mars_base_internal_humidity": 0.0,
-            "mars_base_external_illuminance": 0.0,
-            "mars_base_internal_co2": 0.0,
-            "mars_base_internal_oxygen": 0.0
-        }
+    """화성 기지 환경 시뮬레이션을 위한 더미 센서 클래스"""
+    
+    # 유지보수를 위한 환경 설정 상수 (범위 지정)
+    CONFIG = {
+        "internal_temp": (18, 30),
+        "external_temp": (0, 21),
+        "internal_hum": (50, 60),
+        "external_illu": (500, 715),
+        "internal_co2": (0.02, 0.1),
+        "internal_o2": (4, 7)
+    }
 
     def set_env(self):
-        # 내부 온도: 18~30도
-        self._env_values["mars_base_internal_temperature"] = random.uniform(18, 30)
-        
-        # 외부 온도: 0~21도
-        self._env_values["mars_base_external_temperature"] = random.uniform(0, 21)
-        
-        # 내부 습도: 50~60%
-        self._env_values["mars_base_internal_humidity"] = random.uniform(50, 60)
-        
-        # 외부 광량: 500~715 W/m2
-        self._env_values["mars_base_external_illuminance"] = random.uniform(500, 715)
-        
-        # 내부 이산화탄소 농도: 0.02~0.1%
-        self._env_values["mars_base_internal_co2"] = random.uniform(0.02, 0.1)
-        
-        # 내부 산소 농도: 4%~7%
-        self._env_values["mars_base_internal_oxygen"] = random.uniform(4, 7)
+        c = self.CONFIG
+        # random.uniform을 통해 생성
+        self._env_values["mars_base_internal_temperature"] = random.uniform(*c["internal_temp"])
+        self._env_values["mars_base_external_temperature"] = random.uniform(*c["external_temp"])
+        self._env_values["mars_base_internal_humidity"] = random.uniform(*c["internal_hum"])
+        self._env_values["mars_base_external_illuminance"] = random.uniform(*c["external_illu"])
+        self._env_values["mars_base_internal_co2"] = random.uniform(*c["internal_co2"])
+        self._env_values["mars_base_internal_oxygen"] = random.uniform(*c["internal_o2"])
 
     def get_env(self):
-        return self._env_values
+        """현재 저장된 환경 데이터의 복사본을 반환함"""
+        return self._env_values.copy()
+
+    def set_env(self):
+        """CONFIG 범위 내에서 랜덤 데이터를 생성하여 저장함"""
+        c = self.CONFIG
+        # random.uniform을 통해 소수점 단위까지 정밀하게 생성
+        self._env_values["mars_base_internal_temperature"] = random.uniform(*c["internal_temp"])
+        self._env_values["mars_base_external_temperature"] = random.uniform(*c["external_temp"])
+        self._env_values["mars_base_internal_humidity"] = random.uniform(*c["internal_hum"])
+        self._env_values["mars_base_external_illuminance"] = random.uniform(*c["external_illu"])
+        self._env_values["mars_base_internal_co2"] = random.uniform(*c["internal_co2"])
+        self._env_values["mars_base_internal_oxygen"] = random.uniform(*c["internal_o2"])
+
+    def get_env(self):
+        """현재 저장된 환경 데이터의 복사본을 반환함"""
+        return self._env_values.copy()
 
 
 if __name__ == "__main__":
-    # 1. DummySensor 인스턴스 생성
+    # 1. ds라는 이름으로 인스턴스 생성
     ds = DummySensor()
 
-    # 2. 데이터 생성 (set_env 호출)
-    ds.set_env()
+    # 2. 데이터 갱신 및 확인 (순차 호출)
+    ds.set_env()             # 값 생성
+    result = ds.get_env()    # 값 읽기
 
-    # 3. 데이터 획득 및 출력 (get_env 호출)
-    current_env = ds.get_env()
-
-    print("=== 화성 기지 미션 컴퓨터: 환경 모니터링 시스템 ===")
-    for key, value in current_env.items():
-        # 보기 편하도록 소수점 둘째 자리까지 출력
+    # 3. 결과 출력
+    print("--- 화성 기지 환경 보고서 ---")
+    for key, value in result.items():
         print(f"{key}: {value:.2f}")
