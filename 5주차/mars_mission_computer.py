@@ -14,7 +14,6 @@ class DummySensor:
     }
 
     def __init__(self):
-        # 여기서 _env_values라는 '바구니'를 미리 만들어야 합니다.
         self._env_values = {
             "mars_base_internal_temperature": 0.0,
             "mars_base_external_temperature": 0.0,
