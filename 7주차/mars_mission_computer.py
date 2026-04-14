@@ -19,20 +19,21 @@ class SystemInfo:
 
     @staticmethod
     def get_cpu_cores():
-        return psutil.cpu_count(logical=False)
+        return f"{psutil.cpu_count(logical=False)} Cores"
 
     @staticmethod
     def get_memory_size():
         # GB 단위로 변환
         return round(psutil.virtual_memory().total / (1024**3), 2)
+        return f"{total_gb} GB"
 
     @staticmethod
     def get_cpu_load():
-        return psutil.cpu_percent(interval=1)
+        return f"{psutil.cpu_percent(interval=1)} %"
 
     @staticmethod
     def get_memory_load():
-        return psutil.virtual_memory().percent
+        return f"{psutil.virtual_memory().percent} %"
 
 
 class MissionComputer:
