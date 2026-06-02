@@ -1,3 +1,6 @@
+#pip install SpeechRecognition
+
+
 import os
 import wave
 import csv
